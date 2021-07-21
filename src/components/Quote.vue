@@ -281,7 +281,7 @@ export default {
       this.status.pasos.paso3 = "nav-link active";
     },
     async solicitar() {
-      let celular = "3059237357";
+      let celular = process.env.VUE_APP_CELULAR;
       let texto = `*Desde*: ${this.direccionorigenselect.name}%0A*Hasta*: ${this.direcciondestinoselect.name}%0A*Precio*: ${this.status.cotizacion.precio}%0A%0A*Nombre*: ${this.datos.nombreSolicitante}%0A*Celular*: ${this.datos.celularSolicitante}%0A*Fecha*: ${this.datos.fechaTrasteo}`;
       window.location.href = `https://api.whatsapp.com/send?phone=+57${celular}&text=${texto}`;
     },
