@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="@/assets/camion.png" alt="" width="40" height="24" class="d-inline-block align-text-top">
-        <strong class="m-2">mistrasteos.com</strong>
+        <strong class="m-2">milogistica.co</strong>
       </a>
       <button
         class="navbar-toggler"
