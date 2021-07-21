@@ -220,7 +220,7 @@ export default {
       }
 
       const response = await axios.get(
-        `${process.env.REST}/api/getaddress?`,
+        `${process.env.VUE_APP_REST}/api/getaddress?`,
         {
           params: {
             id: flag ? this.direccionorigen : this.direcciondestino,
@@ -255,7 +255,7 @@ export default {
       this.status.button = false;
 
       const response = await axios.get(
-        `${process.env.REST}/api/getquote?`,
+        `${process.env.VUE_APP_REST}/api/getquote?`,
         {
           params: {
             origin: this.direccionorigenselect.id,
