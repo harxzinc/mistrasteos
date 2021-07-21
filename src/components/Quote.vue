@@ -220,7 +220,7 @@ export default {
       }
 
       const response = await axios.get(
-        `http://192.168.1.4:3000/api/getaddress?`,
+        `${process.env.REST}/api/getaddress?`,
         {
           params: {
             id: flag ? this.direccionorigen : this.direcciondestino,
@@ -255,7 +255,7 @@ export default {
       this.status.button = false;
 
       const response = await axios.get(
-        `http://192.168.1.4:3000/api/getquote?`,
+        `${process.env.REST}/api/getquote?`,
         {
           params: {
             origin: this.direccionorigenselect.id,
