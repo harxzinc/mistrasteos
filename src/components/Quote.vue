@@ -18,12 +18,15 @@
     <div v-if="status.paso === 'paso1'" class="card-body">
       <h5 class="card-title text-center">¿De donde a donde?</h5>
       <div class="input-group mb-3">
-        <span class="input-group-text" id="direccionorigen">📍</span>
+        <span v-if="status.spinner.desde" class="input-group-text">
+          <div class="spinner-border spinner-border-sm" role="status"></div>
+        </span>
+        <span v-else class="input-group-text">📍</span>
         <input
           list="datalistdireccionorigen"
           class="form-control"
-          placeholder="Desde"
-          aria-label="Desde"
+          placeholder="Desde dg 40 #43-03 o Medellin"
+          aria-label="Desde dg 40 #43-03 o Medellin"
           aria-describedby="direccionorigen"
           v-model="direccionorigen"
           @keyup="getAddress(true)"
@@ -51,11 +54,14 @@
       </div>
 
       <div class="input-group mb-3">
-        <span class="input-group-text" id="direcciondestino">🚩</span>
+        <span v-if="status.spinner.hasta" class="input-group-text">
+          <div class="spinner-border spinner-border-sm" role="status"></div>
+        </span>
+        <span v-else class="input-group-text">🚩</span>
         <input
           list="datalistdirecciondestino"
           class="form-control"
-          placeholder="Hasta"
+          placeholder="Hasta cll 20 #20-03 o Caldas"
           aria-label="Hasta"
           aria-describedby="direcciondestino"
           v-model="direcciondestino"
@@ -128,6 +134,9 @@
           <h1 class="card-title">{{ status.cotizacion.precio }}</h1>
         </div>
       </div>
+      <button class="btn btn-warning w-100 mb-2" @click="regresar()">
+        Regresar
+      </button>
       <button class="btn btn-warning w-100" @click="continuar()">
         Continuar
       </button>
@@ -150,6 +159,7 @@
           class="form-control"
           placeholder="tu celular"
           aria-label="tu celular"
+          type="number"
           v-model="datos.celularSolicitante"
         />
       </div>
@@ -180,6 +190,10 @@ export default {
     return {
       requestCotizador: null,
       status: {
+        spinner: {
+          desde: false,
+          hasta: false,
+        },
         dirorigen: true,
         dirdestino: true,
         button: true,
@@ -208,15 +222,10 @@ export default {
   },
   methods: {
     getAddress: _.debounce(async function (flag) {
-      let CancelToken = {}
-      let source = {}
-
-      if (this.requestCotizador) {
-        this.requestCotizador.cancel("Operation canceled by the user.");
+      if (flag) {
+        this.status.spinner.desde = true;
       } else {
-        CancelToken = axios.CancelToken;
-        source = CancelToken.source();
-        this.requestCotizador = source;
+        this.status.spinner.hasta = true;
       }
 
       const response = await axios.get(
@@ -225,16 +234,17 @@ export default {
           params: {
             id: flag ? this.direccionorigen : this.direcciondestino,
           },
-          cancelToken: source.token,
         }
       );
 
       if (flag) {
         this.direccionesorigen = response.data.data;
         this.status.dirorigen = true;
+        this.status.spinner.desde = false;
       } else {
         this.direccionesdestino = response.data.data;
         this.status.dirdestino = true;
+        this.status.spinner.hasta = false;
       }
     }, 300),
     seleccionOrigen(selection) {
@@ -279,6 +289,12 @@ export default {
       this.status.pasos.paso1 = "nav-link";
       this.status.pasos.paso2 = "nav-link";
       this.status.pasos.paso3 = "nav-link active";
+    },
+    regresar() {
+      this.status.paso = "paso1";
+      this.status.pasos.paso1 = "nav-link active";
+      this.status.pasos.paso2 = "nav-link";
+      this.status.pasos.paso3 = "nav-link";
     },
     async solicitar() {
       let celular = process.env.VUE_APP_CELULAR;
