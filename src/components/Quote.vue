@@ -33,7 +33,7 @@
         />
       </div>
 
-      <div v-show="status.dirorigen">
+      <div>
         <div
           class="form-check"
           v-for="(direccion, key) in direccionesorigen"
@@ -69,7 +69,7 @@
         />
       </div>
 
-      <div v-show="status.dirdestino">
+      <div>
         <div
           class="form-check"
           v-for="(direccion, key) in direccionesdestino"
