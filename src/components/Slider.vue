@@ -34,8 +34,8 @@
           alt="..."
         />
         <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Some representative placeholder content for the first slide.</p>
+          <h5>Excelencia</h5>
+          <p>Brindamos una tranquilidad a los usuarios a la hora de transportar.</p>
         </div>
       </div>
       <div class="carousel-item">
@@ -45,8 +45,8 @@
           alt="..."
         />
         <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
-          <p>Some representative placeholder content for the second slide.</p>
+          <h5>Puntualidad</h5>
+          <p>La puntualidad define el sello de nuestro servicio.</p>
         </div>
       </div>
       <div class="carousel-item">
@@ -56,8 +56,8 @@
           alt="..."
         />
         <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-          <p>Some representative placeholder content for the third slide.</p>
+          <h5>Cobertura</h5>
+          <p>Tenemos cobertura en gran parte de Antioquia.</p>
         </div>
       </div>
     </div>

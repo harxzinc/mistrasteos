@@ -28,7 +28,7 @@
           aria-label="Desde dg 40 #43-03 o Medellin"
           aria-describedby="direccionorigen"
           v-model="direccionorigen"
-          @input="e => direccionorigen = e.target.value"
+          @input="(e) => (direccionorigen = e.target.value)"
           @keydown="getAddress(true)"
         />
       </div>
@@ -63,7 +63,7 @@
           placeholder="Hasta cll 20 #20-03 o Caldas"
           aria-label="Hasta"
           v-model="direcciondestino"
-          @input="e => direcciondestino = e.target.value"
+          @input="(e) => (direcciondestino = e.target.value)"
           @keydown="getAddress(false)"
         />
       </div>
@@ -168,6 +168,9 @@
           v-model="datos.fechaTrasteo"
         />
       </div>
+      <button class="btn btn-warning w-100 mb-2" @click="regresar()">
+        Regresar
+      </button>
       <button :class="btnSolicitar" @click="solicitar">Solicitar</button>
     </div>
   </div>
@@ -293,7 +296,7 @@ export default {
     },
     async solicitar() {
       let celular = process.env.VUE_APP_CELULAR;
-      let texto = `*Desde*: ${this.direccionorigenselect.name}%0A*Hasta*: ${this.direcciondestinoselect.name}%0A*Precio*: ${this.status.cotizacion.precio}%0A%0A*Nombre*: ${this.datos.nombreSolicitante}%0A*Celular*: ${this.datos.celularSolicitante}%0A*Fecha*: ${this.datos.fechaTrasteo}`;
+      let texto = `Buen día, me gustaría solicitar el servicio%0A*Desde*: ${this.direccionorigenselect.name}%0A*Hasta*: ${this.direcciondestinoselect.name}%0A*Precio*: ${this.status.cotizacion.precio}%0A%0A*Nombre*: ${this.datos.nombreSolicitante}%0A*Celular*: ${this.datos.celularSolicitante}%0A*Fecha*: ${this.datos.fechaTrasteo}`;
       window.location.href = `https://api.whatsapp.com/send?phone=+57${celular}&text=${texto}`;
     },
   },
