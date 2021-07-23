@@ -23,17 +23,17 @@
         </span>
         <span v-else class="input-group-text">📍</span>
         <input
-          list="datalistdireccionorigen"
           class="form-control"
           placeholder="Desde dg 40 #43-03 o Medellin"
           aria-label="Desde dg 40 #43-03 o Medellin"
           aria-describedby="direccionorigen"
           v-model="direccionorigen"
-          @keyup="getAddress(true)"
+          @input="e => direccionorigen = e.target.value"
+          @keydown="getAddress(true)"
         />
       </div>
 
-      <div>
+      <div v-show="status.dirorigen">
         <div
           class="form-check"
           v-for="(direccion, key) in direccionesorigen"
@@ -59,17 +59,16 @@
         </span>
         <span v-else class="input-group-text">🚩</span>
         <input
-          list="datalistdirecciondestino"
           class="form-control"
           placeholder="Hasta cll 20 #20-03 o Caldas"
           aria-label="Hasta"
-          aria-describedby="direcciondestino"
           v-model="direcciondestino"
-          @keyup="getAddress(false)"
+          @input="e => direcciondestino = e.target.value"
+          @keydown="getAddress(false)"
         />
       </div>
 
-      <div>
+      <div v-show="status.dirdestino">
         <div
           class="form-check"
           v-for="(direccion, key) in direccionesdestino"
@@ -107,11 +106,9 @@
       <div class="input-group mb-3">
         <span class="input-group-text">Origen</span>
         <input
-          list="datalistdireccionorigen"
           class="form-control"
           placeholder="Desde"
           aria-label="Desde"
-          aria-describedby="direccionorigen"
           v-model="direccionorigen"
           disabled
         />
@@ -119,7 +116,6 @@
       <div class="input-group mb-3">
         <span class="input-group-text" id="direcciondestino">Destino</span>
         <input
-          list="datalistdirecciondestino"
           class="form-control"
           placeholder="Hasta"
           aria-label="Hasta"
@@ -188,7 +184,17 @@ export default {
   },
   data() {
     return {
-      requestCotizador: null,
+      direccionorigenselect: {},
+      direcciondestinoselect: {},
+      direccionorigen: "",
+      direcciondestino: "",
+      direccionesorigen: [],
+      direccionesdestino: [],
+      datos: {
+        nombreSolicitante: "",
+        celularSolicitante: "",
+        fechaTrasteo: "",
+      },
       status: {
         spinner: {
           desde: false,
@@ -207,17 +213,6 @@ export default {
           precio: 0,
         },
       },
-      datos: {
-        nombreSolicitante: "",
-        celularSolicitante: "",
-        fechaTrasteo: "",
-      },
-      direccionorigenselect: {},
-      direcciondestinoselect: {},
-      direccionorigen: "",
-      direcciondestino: "",
-      direccionesorigen: [],
-      direccionesdestino: [],
     };
   },
   methods: {
